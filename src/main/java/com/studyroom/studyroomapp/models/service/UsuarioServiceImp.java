@@ -1,5 +1,7 @@
 package com.studyroom.studyroomapp.models.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +21,17 @@ public class UsuarioServiceImp implements UsuarioService {
 
     @Override
     public Usuario save(Usuario u) {
-        return save(u);
+        return usuarioRepository.save(u);
+    }
+
+    @Override
+    public List<Usuario> findAll() {
+        return usuarioRepository.findAll();
+    }
+
+    @Override
+    public void deletById(Long id) {
+        usuarioRepository.deleteById(id);
     }
     
 }

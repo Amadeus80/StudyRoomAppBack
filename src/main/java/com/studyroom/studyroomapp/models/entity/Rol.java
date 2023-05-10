@@ -2,6 +2,11 @@ package com.studyroom.studyroomapp.models.entity;
 
 import java.util.List;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -28,6 +33,7 @@ public class Rol {
 
     private String rol;
 
-    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
-    private List<Usuario> usuarios;
+    /* @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
+    @OnDelete(action = OnDeleteAction.CASCADE)
+    private List<Usuario> usuarios; */
 }

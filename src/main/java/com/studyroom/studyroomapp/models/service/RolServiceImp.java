@@ -3,10 +3,12 @@ package com.studyroom.studyroomapp.models.service;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import com.studyroom.studyroomapp.models.entity.Rol;
 import com.studyroom.studyroomapp.models.repository.RolRepository;
 
+@Service
 public class RolServiceImp implements RolService{
 
     @Autowired
