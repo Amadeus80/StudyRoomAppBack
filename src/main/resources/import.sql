@@ -1,0 +1,9 @@
+INSERT INTO usuarios(email, username, password) VALUES('pablo@gmail.com', 'pablo', '$2a$10$3Xh/E6BcbaNLiIlGE6EMxesbqRfS7/RWavl6gYkRsRjjdfKJuXdHi')
+INSERT INTO usuarios(email, username, password) VALUES('pepe@gmail.com', 'pepe', '$2a$10$3Xh/E6BcbaNLiIlGE6EMxesbqRfS7/RWavl6gYkRsRjjdfKJuXdHi')
+
+INSERT INTO ROLES(rol) VALUES('ROLE_ADMIN')
+INSERT INTO ROLES(rol) VALUES('ROLE_USER')
+
+INSERT INTO USUARIOS_ROLES(USUARIO_ID, ROL_ID) VALUES(1, 1)
+INSERT INTO USUARIOS_ROLES(USUARIO_ID, ROL_ID) VALUES(1, 2)
+INSERT INTO USUARIOS_ROLES(USUARIO_ID, ROL_ID) VALUES(2, 2)
