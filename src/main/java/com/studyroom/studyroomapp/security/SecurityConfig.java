@@ -49,12 +49,8 @@ public class SecurityConfig {
 	public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 		http
 			.authorizeHttpRequests((requests) -> requests
-                .requestMatchers("/", "/login*", "/api/login/**", "/signup", "/adduser","/css/**", "/js/**", "/images/**", "/listar**", "/locale").permitAll()
-                /* .antMatchers("/ver/**").hasAnyRole("USER")
-                .antMatchers("/uploads/**").hasAnyRole("USER")
-                .antMatchers("/form/**").hasAnyRole("ADMIN")
-                .antMatchers("/eliminar/**").hasAnyRole("ADMIN")
-                .antMatchers("/factura/**").hasAnyRole("ADMIN") */
+                .requestMatchers("/login*", "/api/login/**", "/api/user/add").permitAll()
+                .requestMatchers("/api/user/**").hasAnyRole("ADMIN")
                 .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
 				.anyRequest().authenticated()
 			)

@@ -2,7 +2,6 @@ package com.studyroom.studyroomapp.controller.errors;
 
 import java.util.Date;
 
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
