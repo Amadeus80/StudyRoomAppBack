@@ -20,6 +20,11 @@ public class UsuarioServiceImp implements UsuarioService {
     }
 
     @Override
+    public Usuario findByUsername(String username) {
+        return usuarioRepository.findByUsername(username);
+    }
+
+    @Override
     public Usuario save(Usuario u) {
         return usuarioRepository.save(u);
     }
@@ -33,5 +38,4 @@ public class UsuarioServiceImp implements UsuarioService {
     public void deletById(Long id) {
         usuarioRepository.deleteById(id);
     }
-    
 }

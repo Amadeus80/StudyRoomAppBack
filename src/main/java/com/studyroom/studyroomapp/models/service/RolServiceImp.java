@@ -23,5 +23,10 @@ public class RolServiceImp implements RolService{
     public Rol save(Rol r) {
         return rolRepository.save(r);
     }
+
+    @Override
+    public Rol findByRol(String rol) {
+        return rolRepository.findByRol(rol);
+    }
     
 }

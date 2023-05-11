@@ -17,6 +17,8 @@ import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -35,13 +37,17 @@ public class Usuario {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Email(message = "Tienes que introducir un email")
+    @Email(message = "Tienes que introducir un formato de email válido")
+    @NotBlank(message = "Debes indicar un email")
     @Column(unique = true)
     private String email;
 
     @Column(unique = true)
+    @NotBlank(message = "Debes indicar un username")
     private String username;
 
+    @NotBlank(message = "Debes indicar una contraseña")
+    @Size(min = 8, message = "El tamaño mínimo de contraseña es 8")
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER)
