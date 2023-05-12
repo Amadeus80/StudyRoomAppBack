@@ -20,5 +20,4 @@ public class StudyRoomAppApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		System.out.println(bCryptPasswordEncoder.encode("password"));
 	}
-
 }

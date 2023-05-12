@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
+
 import com.studyroom.studyroomapp.auth.filter.JWTAuthenticationFilter;
 import com.studyroom.studyroomapp.auth.filter.JWTAuthorizationFilter;
 import com.studyroom.studyroomapp.auth.service.JWTService;
