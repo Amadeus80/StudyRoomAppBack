@@ -35,6 +35,7 @@ public class UsuarioController {
     
     @GetMapping("/lista")
     public List<Usuario> findAll(){
+        System.out.println("dekfcbhndwjcn");
         return usuarioService.findAll();
     }
 

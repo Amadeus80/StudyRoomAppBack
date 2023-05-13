@@ -55,7 +55,6 @@ public class SecurityConfig {
                 .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
 				.anyRequest().authenticated()
 			)
-            .headers(headers -> headers.frameOptions().disable())
             /* .apply(new MyCustomDsl())
             .and() */
             .csrf(csrf -> {csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**")); csrf.disable();})
