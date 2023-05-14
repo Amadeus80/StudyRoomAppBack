@@ -29,9 +29,13 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter{
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
         throws IOException, ServletException {
         
+        System.out.println("FILTRO AUTHORIZATION");
+        
         String header = request.getHeader(JWTServiceImpl.HEADER_STRING);
+        System.out.println(header);
         
         if(!requiresAuthentication(header)){
+            System.out.println("NOOOOo");
             chain.doFilter(request, response);
             return;
         }
@@ -42,11 +46,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter{
         }
 
         SecurityContextHolder.getContext().setAuthentication(authentication);
-        response.setHeader("Access-Control-Allow-Origin", "*");
-        response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
-        response.setHeader("Access-Control-Max-Age", "3600");
-        response.setHeader("Access-Control-Allow-Credentials", "true");
-        response.setHeader("Access-Control-Allow-Headers", "Origin,Accept,X-Requested-With,Content-Type,Access-Control-Request-Method,Access-Control-Request-Headers,Authorization");
         chain.doFilter(request, response);
     }
 

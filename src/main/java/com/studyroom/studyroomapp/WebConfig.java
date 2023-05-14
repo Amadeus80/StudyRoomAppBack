@@ -1,4 +1,4 @@
-package com.studyroom.studyroomapp;
+/* package com.studyroom.studyroomapp;
 
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
@@ -15,9 +15,9 @@ public class WebConfig implements WebMvcConfigurer {
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
             .allowedOrigins(urlAllowed)
-            .allowedMethods("GET", "POST", "PUT", "DELETE")
+            .allowedMethods("*")
             .allowedHeaders("*")
             .allowCredentials(true)
             .maxAge(3600);
     }
-}
+} */
