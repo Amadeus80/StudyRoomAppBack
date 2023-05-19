@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 import com.studyroom.studyroomapp.controller.errors.ErrorMessage;
-import com.studyroom.studyroomapp.controller.errors.exceptions.UsuarioEmailRepetidoException;
-import com.studyroom.studyroomapp.controller.errors.exceptions.UsuarioNombreRepetidoException;
+import com.studyroom.studyroomapp.controller.errors.exceptions.UsuarioExceptions.UsuarioEmailRepetidoException;
+import com.studyroom.studyroomapp.controller.errors.exceptions.UsuarioExceptions.UsuarioNombreRepetidoException;
 
 @ControllerAdvice
 public class UserControllerAdvice {

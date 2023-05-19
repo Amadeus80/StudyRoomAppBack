@@ -100,8 +100,6 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setStatus(200);
         response.setContentType("application/json");
         System.out.println("SUCCESFUL AUTHENTICATION");
-        String header = request.getHeader(JWTServiceImpl.HEADER_STRING);
-        System.out.println(header);
 /*         response.setHeader("Access-Control-Allow-Origin", "*");
         response.setHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS, DELETE");
         response.setHeader("Access-Control-Max-Age", "3600");

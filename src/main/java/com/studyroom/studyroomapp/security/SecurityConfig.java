@@ -63,14 +63,11 @@ public class SecurityConfig {
                         .requestMatchers("/api/user/**").hasAnyRole("ADMIN")
                         .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
                         .anyRequest().authenticated())
-                /*
-                 * .apply(new MyCustomDsl())
-                 * .and()
-                 */
                 .csrf(csrf -> {
                     csrf.ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**"));
                     csrf.disable();
                 })
+                .headers(h -> h.frameOptions().disable())
                 .sessionManagement(
                         sessionManagent -> sessionManagent.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilter(

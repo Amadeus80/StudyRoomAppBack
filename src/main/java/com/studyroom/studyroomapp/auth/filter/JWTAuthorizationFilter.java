@@ -29,13 +29,9 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter{
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
         throws IOException, ServletException {
         
-        System.out.println("FILTRO AUTHORIZATION");
-        
         String header = request.getHeader(JWTServiceImpl.HEADER_STRING);
-        System.out.println(header);
         
         if(!requiresAuthentication(header)){
-            System.out.println("NOOOOo");
             chain.doFilter(request, response);
             return;
         }

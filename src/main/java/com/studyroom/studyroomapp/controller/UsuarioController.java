@@ -12,8 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.studyroom.studyroomapp.controller.errors.exceptions.UsuarioEmailRepetidoException;
-import com.studyroom.studyroomapp.controller.errors.exceptions.UsuarioNombreRepetidoException;
+import com.studyroom.studyroomapp.controller.errors.exceptions.UsuarioExceptions.UsuarioEmailRepetidoException;
+import com.studyroom.studyroomapp.controller.errors.exceptions.UsuarioExceptions.UsuarioNombreRepetidoException;
 import com.studyroom.studyroomapp.enums.Roles;
 import com.studyroom.studyroomapp.models.entity.Usuario;
 import com.studyroom.studyroomapp.models.service.RolService;
@@ -37,7 +37,6 @@ public class UsuarioController {
     
     @GetMapping("/lista")
     public List<Usuario> findAll(){
-        System.out.println("dekfcbhndwjcn");
         return usuarioService.findAll();
     }
 

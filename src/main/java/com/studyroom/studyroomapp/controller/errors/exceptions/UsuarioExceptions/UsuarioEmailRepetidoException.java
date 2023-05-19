@@ -1,4 +1,4 @@
-package com.studyroom.studyroomapp.controller.errors.exceptions;
+package com.studyroom.studyroomapp.controller.errors.exceptions.UsuarioExceptions;
 
 public class UsuarioEmailRepetidoException extends RuntimeException{
     
