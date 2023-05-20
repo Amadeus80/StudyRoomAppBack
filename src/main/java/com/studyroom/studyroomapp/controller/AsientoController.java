@@ -12,36 +12,35 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.studyroom.studyroomapp.controller.errors.exceptions.Genericas.NotFoundException;
-import com.studyroom.studyroomapp.models.entity.Horario;
-import com.studyroom.studyroomapp.models.service.HorarioService;
-import jakarta.servlet.http.HttpServletRequest;
+import com.studyroom.studyroomapp.models.entity.Asiento;
+import com.studyroom.studyroomapp.models.service.AsientoService;
+
 import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/horario")
+@RequestMapping("/api/asiento")
 @CrossOrigin("*")
-public class HorarioController {
-
+public class AsientoController {
+    
     @Autowired
-    private HorarioService horarioService;
+    private AsientoService asientoService;
 
     @GetMapping("/lista")
-    public List<Horario> findAll(HttpServletRequest request){
-        return horarioService.findAll();
+    public List<Asiento> findAll(){
+        return asientoService.findAll();
     }
 
     @GetMapping("/{id}")
-    public Horario findById(@PathVariable(name = "id") Short id){
-        Horario horario = horarioService.findById(id);
-        if(horario == null){
-            throw new NotFoundException("horario con id ".concat(String.valueOf(id)));
+    public Asiento findById(@PathVariable(name = "id") Short id){
+        Asiento asiento = asientoService.findById(id);
+        if(asiento == null){
+            throw new NotFoundException("asiento con id ".concat(String.valueOf(id)));
         }
-        return horario;
+        return asiento;
     }
 
     @PostMapping("/add")
-    public Horario save(@Valid @RequestBody Horario horario){
-        return horarioService.save(horario);
+    public Asiento save(@Valid @RequestBody Asiento asiento){
+        return asientoService.save(asiento);
     }
-    
 }
