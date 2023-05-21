@@ -59,10 +59,10 @@ public class ReservaController {
             date = dateFormat.parse(fecha);
             for (Asiento asiento : asientos) {
                 if(reservaService.findByAsientoAndFecha(asiento.getId(), date).size() < horarioService.count()){
-                    reservas.add(ReservaDia.builder().asiento(asiento).disponible(true).build()); 
+                    reservas.add(ReservaDia.builder().asiento(asiento).disponible(true).fecha(date).build()); 
                 }
                 else{
-                    reservas.add(ReservaDia.builder().asiento(asiento).disponible(false).build()); 
+                    reservas.add(ReservaDia.builder().asiento(asiento).disponible(false).fecha(date).build()); 
                 }
             }
         } catch (java.text.ParseException e) {
