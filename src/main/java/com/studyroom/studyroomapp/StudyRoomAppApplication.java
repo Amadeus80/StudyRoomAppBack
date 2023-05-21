@@ -52,7 +52,7 @@ public class StudyRoomAppApplication implements CommandLineRunner{
 
 		for (Horario horario : horarioService.findAll()) {
 			ReservaPK reservaPK = ReservaPK.builder().asiento(asientoService.findById((short) 1)).horario(horario).fecha(new Date()).build();
-			Reserva reserva = Reserva.builder().reservaPK(reservaPK).usuario(usuarioService.findByEmail("pablo@gmail.com")).build();
+			Reserva reserva = Reserva.builder().reservaPK(reservaPK).usuario(usuarioService.findByEmail("acostaortizpablo@gmail.com")).build();
 			reservaService.save(reserva);
 		}
 

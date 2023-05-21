@@ -1,5 +1,5 @@
 --USUARIOS
-INSERT INTO usuarios(email, username, password) VALUES('pablo@gmail.com', 'pablo', '$2a$10$3Xh/E6BcbaNLiIlGE6EMxesbqRfS7/RWavl6gYkRsRjjdfKJuXdHi')
+INSERT INTO usuarios(email, username, password) VALUES('acostaortizpablo@gmail.com', 'pablo', '$2a$10$3Xh/E6BcbaNLiIlGE6EMxesbqRfS7/RWavl6gYkRsRjjdfKJuXdHi')
 INSERT INTO usuarios(email, username, password) VALUES('pepe@gmail.com', 'pepe', '$2a$10$3Xh/E6BcbaNLiIlGE6EMxesbqRfS7/RWavl6gYkRsRjjdfKJuXdHi')
 
 INSERT INTO ROLES(rol) VALUES('ROLE_ADMIN')

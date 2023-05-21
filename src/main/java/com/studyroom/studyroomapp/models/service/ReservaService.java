@@ -12,4 +12,5 @@ public interface ReservaService {
     public Reserva save(Reserva r);
     public List<Reserva> findByUsuario(Long id);
     public List<Reserva> findByAsientoAndFecha(Short idAsiento, Date fecha);
+    public void deleteById(ReservaPK reservaPK);
 }

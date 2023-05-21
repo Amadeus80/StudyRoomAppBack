@@ -29,4 +29,22 @@ public class Correo {
 
         System.out.println("Correo enviado con éxito");
     }
+
+    public void sendEmail(String subject, String message, String to){
+        Email email = EmailBuilder.startingBlank()
+            .from(remitente)
+            .to(to)
+            .withSubject(subject)
+            .withPlainText(message)
+            .buildEmail();
+        
+        Mailer mailer = MailerBuilder
+            .withSMTPServer("smtp.gmail.com", 587, remitente, password)
+            .withTransportStrategy(TransportStrategy.SMTP_TLS)
+            .buildMailer();
+        
+        mailer.sendMail(email);
+
+        System.out.println("Correo enviado con éxito");
+    }
 }

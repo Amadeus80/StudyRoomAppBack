@@ -44,5 +44,10 @@ public class ReservaServiceImp implements ReservaService{
     public List<Reserva> findByAsientoAndFecha(Short idAsiento, Date fecha) {
         return reservaRepository.findByAsientoAndFecha(idAsiento, fecha);
     }
+
+    @Override
+    public void deleteById(ReservaPK reservaPK) {
+        reservaRepository.deleteById(reservaPK);
+    }
     
 }
