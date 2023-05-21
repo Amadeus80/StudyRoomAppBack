@@ -3,6 +3,7 @@ package com.studyroom.studyroomapp.controller;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -123,7 +124,7 @@ public class ReservaController {
             .concat(asiento)
             .concat(" a las ")
             .concat(horario);
-        correo.sendEmail(subject, message, r.getUsuario().getEmail());
+        correo.sendEmail(Arrays.asList(r.getUsuario().getEmail()) ,subject, message);
         return r;
     }
 
