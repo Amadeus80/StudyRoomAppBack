@@ -2,6 +2,9 @@ package com.studyroom.studyroomapp.models.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
 import jakarta.persistence.Embeddable;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Temporal;
@@ -28,6 +31,7 @@ public class ReservaPK implements Serializable{
     private Horario horario;
 
     @Temporal(TemporalType.DATE)
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @NotNull(message = "Debes indicar una fecha")
     private Date fecha;
 }

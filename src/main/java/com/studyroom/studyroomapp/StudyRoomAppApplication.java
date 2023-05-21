@@ -8,6 +8,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.studyroom.studyroomapp.models.entity.Horario;
 import com.studyroom.studyroomapp.models.entity.Reserva;
 import com.studyroom.studyroomapp.models.entity.ReservaPK;
 import com.studyroom.studyroomapp.models.service.AsientoService;
@@ -41,13 +42,19 @@ public class StudyRoomAppApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		System.out.println(bCryptPasswordEncoder.encode("password"));
 
-		ReservaPK reservaPK1 = ReservaPK.builder().asiento(asientoService.findById((short) 1)).horario(horarioService.findById((short) 1)).fecha(new Date()).build();
+		/* ReservaPK reservaPK1 = ReservaPK.builder().asiento(asientoService.findById((short) 1)).horario(horarioService.findById((short) 1)).fecha(new Date()).build();
 		Reserva reserva1 = Reserva.builder().reservaPK(reservaPK1).usuario(usuarioService.findByEmail("pablo@gmail.com")).build();
 		reservaService.save(reserva1);
 
-		ReservaPK reservaPK2 = ReservaPK.builder().asiento(asientoService.findById((short) 2)).horario(horarioService.findById((short) 1)).fecha(new Date()).build();
+		ReservaPK reservaPK2 = ReservaPK.builder().asiento(asientoService.findById((short) 1)).horario(horarioService.findById((short) 2)).fecha(new Date()).build();
 		Reserva reserva2 = Reserva.builder().reservaPK(reservaPK2).usuario(usuarioService.findByEmail("pablo@gmail.com")).build();
-		reservaService.save(reserva2);
+		reservaService.save(reserva2); */
+
+		for (Horario horario : horarioService.findAll()) {
+			ReservaPK reservaPK = ReservaPK.builder().asiento(asientoService.findById((short) 1)).horario(horario).fecha(new Date()).build();
+			Reserva reserva = Reserva.builder().reservaPK(reservaPK).usuario(usuarioService.findByEmail("pablo@gmail.com")).build();
+			reservaService.save(reserva);
+		}
 
 	}
 }

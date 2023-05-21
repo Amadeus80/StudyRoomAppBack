@@ -9,4 +9,5 @@ public interface HorarioService {
     public Horario findById(Short id);
     public Horario save(Horario h);
     public Horario findByHora(String hora);
+    public Long count();
 }

@@ -1,5 +1,6 @@
 package com.studyroom.studyroomapp.models.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,11 @@ public class ReservaServiceImp implements ReservaService{
     @Override
     public List<Reserva> findByUsuario(Long id) {
         return reservaRepository.findByUsuario(id);
+    }
+
+    @Override
+    public List<Reserva> findByAsientoAndFecha(Short idAsiento, Date fecha) {
+        return reservaRepository.findByAsientoAndFecha(idAsiento, fecha);
     }
     
 }

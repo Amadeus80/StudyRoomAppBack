@@ -37,5 +37,10 @@ public class HorarioServiceImp implements HorarioService{
     public Horario findByHora(String hora) {
         return horarioRepository.findByHora(hora).orElse(null);
     }
+
+    @Override
+    public Long count() {
+        return horarioRepository.count();
+    }
     
 }
