@@ -1,5 +1,6 @@
 package com.studyroom.studyroomapp.models.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -41,6 +42,11 @@ public class HorarioServiceImp implements HorarioService{
     @Override
     public Long count() {
         return horarioRepository.count();
+    }
+
+    @Override
+    public List<Horario> listadoHorariosDisponiblesDiaYFecha(Date fecha, Short asientoId) {
+        return horarioRepository.listadoHorariosDisponiblesDiaYFecha(fecha, asientoId);
     }
     
 }

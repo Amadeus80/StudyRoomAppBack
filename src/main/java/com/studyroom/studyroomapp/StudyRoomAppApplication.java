@@ -42,19 +42,19 @@ public class StudyRoomAppApplication implements CommandLineRunner{
 	public void run(String... args) throws Exception {
 		System.out.println(bCryptPasswordEncoder.encode("password"));
 
-		/* ReservaPK reservaPK1 = ReservaPK.builder().asiento(asientoService.findById((short) 1)).horario(horarioService.findById((short) 1)).fecha(new Date()).build();
-		Reserva reserva1 = Reserva.builder().reservaPK(reservaPK1).usuario(usuarioService.findByEmail("pablo@gmail.com")).build();
-		reservaService.save(reserva1);
-
-		ReservaPK reservaPK2 = ReservaPK.builder().asiento(asientoService.findById((short) 1)).horario(horarioService.findById((short) 2)).fecha(new Date()).build();
-		Reserva reserva2 = Reserva.builder().reservaPK(reservaPK2).usuario(usuarioService.findByEmail("pablo@gmail.com")).build();
-		reservaService.save(reserva2); */
-
+		/* INSERT DE RESERVAS */
 		for (Horario horario : horarioService.findAll()) {
 			ReservaPK reservaPK = ReservaPK.builder().asiento(asientoService.findById((short) 1)).horario(horario).fecha(new Date()).build();
 			Reserva reserva = Reserva.builder().reservaPK(reservaPK).usuario(usuarioService.findByEmail("acostaortizpablo@gmail.com")).build();
 			reservaService.save(reserva);
 		}
 
+		ReservaPK reservaPK = ReservaPK.builder().asiento(asientoService.findById((short) 3)).horario(horarioService.findById((short)1)).fecha(new Date()).build();
+		Reserva reserva = Reserva.builder().reservaPK(reservaPK).usuario(usuarioService.findByEmail("acostaortizpablo@gmail.com")).build();
+		reservaService.save(reserva);
+
+		reservaPK = ReservaPK.builder().asiento(asientoService.findById((short) 3)).horario(horarioService.findById((short)2)).fecha(new Date()).build();
+		reserva = Reserva.builder().reservaPK(reservaPK).usuario(usuarioService.findByEmail("acostaortizpablo@gmail.com")).build();
+		reservaService.save(reserva);
 	}
 }

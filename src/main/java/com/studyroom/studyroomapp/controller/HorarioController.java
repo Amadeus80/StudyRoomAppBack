@@ -1,5 +1,9 @@
 package com.studyroom.studyroomapp.controller;
 
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.studyroom.studyroomapp.controller.errors.exceptions.Genericas.NotFoundException;
+import com.studyroom.studyroomapp.controller.errors.exceptions.ReservasExceptions.FormatoFechaException;
 import com.studyroom.studyroomapp.models.entity.Horario;
 import com.studyroom.studyroomapp.models.service.HorarioService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -42,6 +47,20 @@ public class HorarioController {
     @PostMapping("/add")
     public Horario save(@Valid @RequestBody Horario horario){
         return horarioService.save(horario);
+    }
+
+    @GetMapping("/horas-disponibles/{fecha}/{asientoId}")
+    public List<Horario> listado(@PathVariable("fecha") String fecha, @PathVariable("asientoId") Short asientoId){
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        Date date = null;
+        try{
+            date = dateFormat.parse(fecha);
+            return horarioService.listadoHorariosDisponiblesDiaYFecha(date, asientoId);
+        }
+        catch(ParseException e){
+            throw new FormatoFechaException(fecha);
+        }
     }
     
 }
