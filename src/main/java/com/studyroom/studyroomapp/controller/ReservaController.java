@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.studyroom.studyroomapp.auth.service.JWTService;
 import com.studyroom.studyroomapp.auth.service.JWTServiceImpl;
 import com.studyroom.studyroomapp.controller.errors.exceptions.Genericas.NotFoundException;
+import com.studyroom.studyroomapp.controller.errors.exceptions.ReservasExceptions.FechaAnteriorException;
 import com.studyroom.studyroomapp.controller.errors.exceptions.ReservasExceptions.FormatoFechaException;
 import com.studyroom.studyroomapp.dtos.ReservaDia;
 import com.studyroom.studyroomapp.models.entity.Asiento;
@@ -63,6 +64,19 @@ public class ReservaController {
     @GetMapping("/lista")
     public List<Reserva> findAll(){
         return reservaService.findAll();
+    }
+
+    public static Date fechaSinHoras(Date date){
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+
+        return calendar.getTime();
+
     }
 
     @GetMapping("/{fecha}")
@@ -109,6 +123,12 @@ public class ReservaController {
 
     @PostMapping("/add")
     public Reserva save(@Valid @RequestBody Reserva reserva, HttpServletRequest request){
+
+        Date fechaReserva = fechaSinHoras(reserva.getReservaPK().getFecha());
+        if(fechaReserva.before(fechaSinHoras(new Date()))){
+            throw new FechaAnteriorException(fechaReserva.toString());
+        }
+
         String token =  request.getHeader(JWTServiceImpl.HEADER_STRING);
         String usuarioEmail = jwtService.getUsername(token);
         Usuario usuario = usuarioService.findByEmail(usuarioEmail);
@@ -124,7 +144,7 @@ public class ReservaController {
             .concat(asiento)
             .concat(" a las ")
             .concat(horario);
-        correo.sendEmail(Arrays.asList(r.getUsuario().getEmail()) ,subject, message);
+        /* correo.sendEmail(Arrays.asList(r.getUsuario().getEmail()) ,subject, message); */
         return r;
     }
 
