@@ -49,3 +49,7 @@ INSERT INTO ASIENTOS(ASIENTO) VALUES('4B')
 INSERT INTO ASIENTOS(ASIENTO) VALUES('4C')
 INSERT INTO ASIENTOS(ASIENTO) VALUES('4D')
 INSERT INTO ASIENTOS(ASIENTO) VALUES('4E')
+
+/* CONTACTOS */
+
+INSERT INTO CONTACTOS(nombre_usuario, email, telefono, mensaje, resuelta) VALUES('pablo', 'acostaortizpablo@gmail.com', '642799465', 'Esto es una consulta de pablo', false)
