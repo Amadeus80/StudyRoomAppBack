@@ -85,7 +85,7 @@ public class SecurityConfig {
                 "Access-Control-Request-Method", "Access-Control-Request-Headers", "Authorization", "X-Auth-Token"));
         cc.setExposedHeaders(Arrays.asList("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials", "Authorization"));
         cc.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
-        cc.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS", "PUT", "PATCH"));
+        cc.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"));
         cc.addAllowedOrigin("http://localhost:4200");
         cc.setMaxAge(Duration.ZERO);
         cc.setAllowCredentials(Boolean.TRUE);

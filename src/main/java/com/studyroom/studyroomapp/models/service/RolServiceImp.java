@@ -15,8 +15,13 @@ public class RolServiceImp implements RolService{
     private RolRepository rolRepository;
 
     @Override
-    public List<Rol> findALl() {
+    public List<Rol> findAll() {
         return rolRepository.findAll();
+    }
+    
+    @Override
+    public Rol findById(Long id) {
+        return rolRepository.findById(id).orElse(null);
     }
 
     @Override
@@ -26,7 +31,8 @@ public class RolServiceImp implements RolService{
 
     @Override
     public Rol findByRol(String rol) {
-        return rolRepository.findByRol(rol);
+        return rolRepository.findByRol(rol).orElse(null);
     }
+
     
 }
