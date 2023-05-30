@@ -1,6 +1,5 @@
 package com.studyroom.studyroomapp.controller;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -52,9 +51,16 @@ public class UsuarioController {
     } */
 
     @GetMapping("/lista")
-    public Page<Usuario> findAll(@RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(defaultValue = "3") int size){
+    public Page<Usuario> findAll(@RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size, @RequestParam(name = "q",required = false) String query){
         Pageable pageRequest = PageRequest.of(page, size);
-        return usuarioService.findAll(pageRequest);
+        Page<Usuario> usuarios;
+        if(query == null || query.length() <= 0){
+            usuarios = usuarioService.findAll(pageRequest);
+        }
+        else{
+            usuarios = usuarioService.findByUsernameOrEmail(query, query, pageRequest);
+        }
+        return usuarios;
     }
 
     @GetMapping("/lista-roles")
@@ -110,6 +116,70 @@ public class UsuarioController {
         }
 
         usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+        usuarioService.save(usuario);
+        return usuario;
+    }
+
+    @PostMapping("/edit/{id}")
+    public Usuario saveAdmin(@Valid @RequestBody Usuario usuario, @PathVariable("id") Long id){
+        Usuario u = usuarioService.findById(id);
+        if(u == null){
+            throw new NotFoundException("EL usuario con el id ".concat(String.valueOf(id)));
+        }
+
+        if(usuarioService.findByEmail(usuario.getEmail()) != null && !usuarioService.findById(id).getEmail().toUpperCase().equals(usuario.getEmail().toUpperCase())){
+            throw new UsuarioEmailRepetidoException(usuario.getEmail());
+        }
+
+        if(usuarioService.findByUsername(usuario.getUsername()) != null && !usuarioService.findById(id).getUsername().toUpperCase().equals(usuario.getUsername().toUpperCase())){
+            throw new UsuarioNombreRepetidoException(usuario.getUsername());
+        }
+
+        if(usuario.getRoles() == null){
+            usuario.setRoles(Arrays.asList(rolService.findByRol(Roles.ROLE_USER.name())));
+        }
+        else{
+            for (Rol rol : usuario.getRoles()) {
+                if(rolService.findById(rol.getId()) == null){
+                    throw new NotFoundException("El rol con id "+String.valueOf(rol.getId()));
+                }
+            }
+        }
+
+        usuario.setPassword(u.getPassword());
+        usuario.setId(id);
+        usuarioService.save(usuario);
+        return usuario;
+    }
+
+    @PostMapping("/edit-password/{id}")
+    public Usuario saveAdmin_password(@Valid @RequestBody Usuario usuario, @PathVariable("id") Long id){
+        Usuario u = usuarioService.findById(id);
+        if(u == null){
+            throw new NotFoundException("EL usuario con el id ".concat(String.valueOf(id)));
+        }
+
+        if(usuarioService.findByEmail(usuario.getEmail()) != null && !usuarioService.findById(id).getEmail().toUpperCase().equals(usuario.getEmail().toUpperCase())){
+            throw new UsuarioEmailRepetidoException(usuario.getEmail());
+        }
+
+        if(usuarioService.findByUsername(usuario.getUsername()) != null && !usuarioService.findById(id).getUsername().toUpperCase().equals(usuario.getUsername().toUpperCase())){
+            throw new UsuarioNombreRepetidoException(usuario.getUsername());
+        }
+
+        if(usuario.getRoles() == null){
+            usuario.setRoles(Arrays.asList(rolService.findByRol(Roles.ROLE_USER.name())));
+        }
+        else{
+            for (Rol rol : usuario.getRoles()) {
+                if(rolService.findById(rol.getId()) == null){
+                    throw new NotFoundException("El rol con id "+String.valueOf(rol.getId()));
+                }
+            }
+        }
+
+        usuario.setPassword(passwordEncoder.encode(usuario.getPassword()));
+        usuario.setId(id);
         usuarioService.save(usuario);
         return usuario;
     }

@@ -13,6 +13,7 @@ public interface UsuarioService {
     public Usuario findByUsername(String username);
     public List<Usuario> findAll();
     public Page<Usuario> findAll(Pageable pageable);
+    public Page<Usuario> findByUsernameOrEmail(String username,String email,Pageable pageable);
     public void deletById(Long id);
     public Usuario save(Usuario u);
 }
