@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -120,8 +121,8 @@ public class UsuarioController {
         return usuario;
     }
 
-    @PostMapping("/edit/{id}")
-    public Usuario saveAdmin(@Valid @RequestBody Usuario usuario, @PathVariable("id") Long id){
+    @PutMapping("/edit/{id}")
+    public Usuario editAdmin(@Valid @RequestBody Usuario usuario, @PathVariable("id") Long id){
         Usuario u = usuarioService.findById(id);
         if(u == null){
             throw new NotFoundException("EL usuario con el id ".concat(String.valueOf(id)));
@@ -152,8 +153,8 @@ public class UsuarioController {
         return usuario;
     }
 
-    @PostMapping("/edit-password/{id}")
-    public Usuario saveAdmin_password(@Valid @RequestBody Usuario usuario, @PathVariable("id") Long id){
+    @PutMapping("/edit-password/{id}")
+    public Usuario editAdminPassword(@Valid @RequestBody Usuario usuario, @PathVariable("id") Long id){
         Usuario u = usuarioService.findById(id);
         if(u == null){
             throw new NotFoundException("EL usuario con el id ".concat(String.valueOf(id)));

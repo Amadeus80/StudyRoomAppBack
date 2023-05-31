@@ -1,11 +1,16 @@
 package com.studyroom.studyroomapp.models.entity;
 
+
+import java.util.Date;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Temporal;
+import jakarta.persistence.TemporalType;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import lombok.AllArgsConstructor;
@@ -44,4 +49,7 @@ public class Contacto {
 
     @Column(nullable = false)
     private boolean resuelta;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date fecha;
 }
