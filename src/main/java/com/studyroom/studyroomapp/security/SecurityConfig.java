@@ -60,6 +60,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/login*", "/api/login/**", "/api/user/add", "/api/contacto/add").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "*").permitAll()
+                        .requestMatchers("/api/user/find-user-logeado").authenticated()
                         .requestMatchers("/api/user/**").hasAnyRole("ADMIN")
                         .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
                         .anyRequest().authenticated())
