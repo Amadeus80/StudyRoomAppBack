@@ -71,6 +71,24 @@ public class UsuarioController {
         return u;
     }
 
+    @GetMapping("/userByUsername/{username}")
+    public Usuario userByUsername(@PathVariable("username") String username){
+        Usuario u = usuarioService.findByUsername(username);
+        if(u == null){
+            throw new NotFoundException("El username "+String.valueOf(username));
+        }
+        return u;
+    }
+
+    @GetMapping("/userByEmail/{email}")
+    public Usuario userByEmail(@PathVariable("email") String email){
+        Usuario u = usuarioService.findByEmail(email);
+        if(u == null){
+            throw new NotFoundException("El email "+String.valueOf(email));
+        }
+        return u;
+    }
+
     @PostMapping("/add")
     public Usuario save(@Valid @RequestBody Usuario usuario){
         if(usuarioService.findByEmail(usuario.getEmail()) != null){
