@@ -9,6 +9,9 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.studyroom.studyroomapp.auth.service.JWTService;
@@ -114,9 +118,16 @@ public class ReservaController {
         return reserva;
     }
 
-    @GetMapping("/usuario/{id}")
-    public List<Reserva> findById(@PathVariable(name = "id") Long id){
-        return reservaService.findByUsuario(id);
+    @GetMapping("/usuario")
+    public Page<Reserva> findById(HttpServletRequest request, @RequestParam(name = "page", defaultValue = "0") int page){
+        String token =  request.getHeader(JWTServiceImpl.HEADER_STRING);
+        String usuarioEmail = jwtService.getUsername(token);
+        Usuario usuario = usuarioService.findByEmail(usuarioEmail);
+        if(usuario == null){
+            throw new NotFoundException("Usuario ");
+        }
+        Pageable pageRequest = PageRequest.of(page, 5);
+        return reservaService.findByUsuario(usuario.getId(), pageRequest);
     }
 
     @PostMapping("/add")

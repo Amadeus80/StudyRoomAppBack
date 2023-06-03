@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.studyroom.studyroomapp.controller.errors.exceptions.Genericas.DuplicadoException;
@@ -36,8 +38,8 @@ public class ReservaServiceImp implements ReservaService{
     }
 
     @Override
-    public List<Reserva> findByUsuario(Long id) {
-        return reservaRepository.findByUsuario(id);
+    public Page<Reserva> findByUsuario(Long id, Pageable pageable) {
+        return reservaRepository.findByUsuario(id, pageable);
     }
 
     @Override
