@@ -1,6 +1,7 @@
 package com.studyroom.studyroomapp.controller;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -48,6 +49,7 @@ public class ContactoController {
     @PostMapping("/add")
     public Contacto save(@Valid @RequestBody Contacto contacto){
         contacto.setResuelta(false);
+        contacto.setFecha(new Date());
         return contactoService.save(contacto);
     }
 
@@ -55,9 +57,16 @@ public class ContactoController {
     private ResolverConsulta resolver(@Valid @RequestBody ResolverConsulta resolverConsulta, @PathVariable("idConsulta") Long id){
         Contacto contacto = contactoService.findById(id);
         if(contacto == null){
-            throw new NotFoundException("Contacto con id ".concat(String.valueOf(id)));
+            throw new NotFoundException("Consulta con id ".concat(String.valueOf(id)));
         }
-        correo.sendEmail(Arrays.asList(contactoService.findById(id).getEmail()), "Respuesta ".concat(contactoService.findById(id).getMensaje()), resolverConsulta.getMensaje());
+        /* correo.sendEmail(Arrays.asList(contactoService.findById(id).getEmail()), "Respuesta ".concat(contactoService.findById(id).getMensaje()), resolverConsulta.getMensaje()); */
+        contacto.setResuelta(true);
+        contactoService.save(contacto);
         return resolverConsulta;
+    }
+
+    @GetMapping("/lista-no-resueltas")
+    public List<Contacto> listaNoResueltas(){
+        return contactoService.findByResuelta(false);
     }
 }

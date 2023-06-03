@@ -28,5 +28,10 @@ public class ContactoServiceImp implements ContactoService{
     public Contacto save(Contacto c) {
         return contactoRepository.save(c);
     }
+
+    @Override
+    public List<Contacto> findByResuelta(boolean resuelta) {
+        return contactoRepository.findByResueltaOrderByFechaAsc(resuelta);
+    }
     
 }

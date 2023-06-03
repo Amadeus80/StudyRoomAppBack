@@ -50,4 +50,9 @@ public class UsuarioServiceImp implements UsuarioService {
     public Page<Usuario> findAll(Pageable pageable) {
         return usuarioRepository.findAll(pageable);
     }
+
+    @Override
+    public Page<Usuario> findByUsernameOrEmail(String username, String email, Pageable pageable) {
+        return usuarioRepository.findByUsernameContainingIgnoreCaseOrEmailContainingIgnoreCase(username, email, pageable);
+    }
 }
