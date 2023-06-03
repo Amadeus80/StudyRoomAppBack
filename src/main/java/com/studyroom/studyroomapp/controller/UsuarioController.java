@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.studyroom.studyroomapp.auth.service.JWTService;
+import com.studyroom.studyroomapp.auth.service.JWTServiceImpl;
 import com.studyroom.studyroomapp.controller.errors.exceptions.Genericas.NotFoundException;
 import com.studyroom.studyroomapp.controller.errors.exceptions.UsuarioExceptions.UsuarioEmailRepetidoException;
 import com.studyroom.studyroomapp.controller.errors.exceptions.UsuarioExceptions.UsuarioNombreRepetidoException;
@@ -30,6 +32,7 @@ import com.studyroom.studyroomapp.models.entity.Usuario;
 import com.studyroom.studyroomapp.models.service.RolService;
 import com.studyroom.studyroomapp.models.service.UsuarioService;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.validation.Valid;
 
 @RestController
@@ -45,6 +48,9 @@ public class UsuarioController {
 
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JWTService jwtService;
     
     /* @GetMapping("/lista")
     public List<Usuario> findAll(){
@@ -76,6 +82,18 @@ public class UsuarioController {
             throw new NotFoundException("El id "+String.valueOf(id));
         }
         return u;
+    }
+
+    @GetMapping("/find-user-logeado")
+    public Usuario findUser(HttpServletRequest request){
+        String token = request.getHeader(JWTServiceImpl.HEADER_STRING);
+        Usuario usuario = usuarioService.findByEmail(jwtService.getUsername(token));
+        if(usuario == null){
+            throw new NotFoundException("El email "+String.valueOf(jwtService.getUsername(token)));
+        }
+        usuario.setPassword(null);
+        return usuario;
+        
     }
 
     @GetMapping("/userByUsername/{username}")
