@@ -232,4 +232,35 @@ public class UsuarioController {
         mensaje.put("mensaje", "Se ha borrado el usuario con id ".concat(String.valueOf(id)));
         return mensaje;
     }
+
+    @PutMapping("/editUsernameUsuario")
+    public Usuario editUsernameUsuario(@Valid @RequestBody Usuario usuario, HttpServletRequest request){
+        String token = request.getHeader(JWTServiceImpl.HEADER_STRING);
+        Usuario u = usuarioService.findByEmail(jwtService.getUsername(token));
+        if(u == null){
+            throw new NotFoundException("El username "+String.valueOf(jwtService.getUsername(token)));
+        }
+
+        if(usuarioService.findByUsername(usuario.getUsername()) != null){
+            throw new UsuarioNombreRepetidoException(usuario.getUsername());
+        }
+
+        u.setUsername(usuario.getUsername());
+        usuarioService.save(u);
+        return u;
+    }
+
+    @PutMapping("/editPasswordUsuario")
+    public Usuario editPasswordUsuario(@Valid @RequestBody Usuario usuario, HttpServletRequest request){
+        String token = request.getHeader(JWTServiceImpl.HEADER_STRING);
+        Usuario u = usuarioService.findByEmail(jwtService.getUsername(token));
+        if(u == null){
+            throw new NotFoundException("El username "+String.valueOf(jwtService.getUsername(token)));
+        }
+
+        u.setPassword(passwordEncoder.encode(usuario.getPassword()));
+        usuarioService.save(u);
+        return u;
+    }
+
 }
