@@ -25,6 +25,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.studyroom.studyroomapp.auth.service.JWTService;
 import com.studyroom.studyroomapp.auth.service.JWTServiceImpl;
 import com.studyroom.studyroomapp.controller.errors.exceptions.Genericas.NotFoundException;
+import com.studyroom.studyroomapp.controller.errors.exceptions.ReservasExceptions.BorradoReservaException;
 import com.studyroom.studyroomapp.controller.errors.exceptions.ReservasExceptions.FechaAnteriorException;
 import com.studyroom.studyroomapp.controller.errors.exceptions.ReservasExceptions.FormatoFechaException;
 import com.studyroom.studyroomapp.dtos.ReservaDia;
@@ -158,7 +159,20 @@ public class ReservaController {
     }
 
     @DeleteMapping("/delete")
-    public void deleteById(@Valid @RequestBody ReservaPK reservaPK){
+    public void deleteById(@Valid @RequestBody ReservaPK reservaPK, HttpServletRequest request){
+        String token =  request.getHeader(JWTServiceImpl.HEADER_STRING);
+        String usuarioEmail = jwtService.getUsername(token);
+        Usuario usuario = usuarioService.findByEmail(usuarioEmail);
+        if(usuario == null){
+            throw new NotFoundException("Usuario ");
+        }
+        Reserva reserva = reservaService.findById(reservaPK);
+        if(reserva == null){
+            throw new NotFoundException("Reserva ");
+        }
+        if(reserva.getUsuario().getId() != usuario.getId()){
+            throw new BorradoReservaException(reservaPK.toString());
+        }
         reservaService.deleteById(reservaPK);
     }
 
