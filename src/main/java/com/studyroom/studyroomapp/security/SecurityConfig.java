@@ -58,7 +58,7 @@ public class SecurityConfig {
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/login*", "/api/login/**", "/api/user/add", "/api/contacto/add").permitAll()
+                        .requestMatchers("/login*", "/api/login/**", "/api/user/add", "/api/contacto/add", "/comunicados/**", "/api/comunicados/**").permitAll()
                         .requestMatchers(HttpMethod.OPTIONS, "*").permitAll()
                         .requestMatchers("/api/user/find-user-logeado").authenticated()
                         .requestMatchers("/api/user/editUsernameUsuario").authenticated()
