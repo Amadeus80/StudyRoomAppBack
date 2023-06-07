@@ -48,5 +48,10 @@ public class HorarioServiceImp implements HorarioService{
     public List<Horario> listadoHorariosDisponiblesDiaYFecha(Date fecha, Short asientoId) {
         return horarioRepository.listadoHorariosDisponiblesDiaYFecha(fecha, asientoId);
     }
+
+    @Override
+    public List<Horario> listadoHorariosDisponiblesDiaYFechaDiaActual(Date fecha, Short asientoId, Short horarioId) {
+        return horarioRepository.listadoHorariosDisponiblesDiaYFechaDiaActual(fecha, asientoId, horarioId);
+    }
     
 }

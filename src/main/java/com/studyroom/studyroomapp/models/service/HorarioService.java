@@ -12,4 +12,5 @@ public interface HorarioService {
     public Horario findByHora(String hora);
     public Long count();
     public List<Horario> listadoHorariosDisponiblesDiaYFecha(Date fecha, Short asientoId);
+    public List<Horario> listadoHorariosDisponiblesDiaYFechaDiaActual(Date fecha, Short asientoId, Short horarioId);
 }

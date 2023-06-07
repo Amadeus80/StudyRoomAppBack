@@ -13,7 +13,7 @@ import com.studyroom.studyroomapp.models.entity.ReservaPK;
 
 public interface ReservaRepository extends JpaRepository<Reserva, ReservaPK>{
 
-    @Query("SELECT r FROM Reserva r WHERE r.usuario.id = ?1 ORDER BY r.reservaPK.fecha ASC")
+    @Query("SELECT r FROM Reserva r WHERE r.usuario.id = ?1 ORDER BY r.reservaPK.fecha ASC, r.reservaPK.horario ASC")
     public Page<Reserva> findByUsuario(Long idUsuario, Pageable pageable);
 
     @Query("SELECT r FROM Reserva r WHERE r.reservaPK.asiento.id = ?1 and r.reservaPK.fecha = ?2")

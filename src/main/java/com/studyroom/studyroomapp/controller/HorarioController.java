@@ -1,9 +1,11 @@
 package com.studyroom.studyroomapp.controller;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,38 @@ public class HorarioController {
 
     @Autowired
     private HorarioService horarioService;
+
+    public static Date fechaSinHoras(Date date){
+        Calendar calendar = Calendar.getInstance();
+
+        calendar.setTime(date);
+        calendar.set(Calendar.HOUR_OF_DAY, 0);
+        calendar.set(Calendar.MINUTE, 0);
+        calendar.set(Calendar.SECOND, 0);
+        calendar.set(Calendar.MILLISECOND, 0);
+        return calendar.getTime();
+    }
+
+    private static String horaActual(){
+        LocalDateTime ahora= LocalDateTime.now();
+                int hora = ahora.getHour();
+                int minutos = ahora.getMinute();
+                String horaString = "";
+
+                if(minutos > 30){
+                    hora++;
+                }
+
+                if(hora < 10){
+                    horaString = "0"+String.valueOf(hora);
+                }
+                else{
+                    horaString = String.valueOf(hora);
+                }
+                
+                
+                return horaString + ":00";
+    }
 
     @GetMapping("/lista")
     public List<Horario> findAll(HttpServletRequest request){
@@ -56,6 +90,12 @@ public class HorarioController {
         Date date = null;
         try{
             date = dateFormat.parse(fecha);
+            if(date.equals(fechaSinHoras(new Date()))){
+                Horario horario = horarioService.findByHora(horaActual());
+                if(horario != null){
+                    return horarioService.listadoHorariosDisponiblesDiaYFechaDiaActual(date, asientoId, horario.getId());
+                }
+            }
             return horarioService.listadoHorariosDisponiblesDiaYFecha(date, asientoId);
         }
         catch(ParseException e){
