@@ -16,7 +16,7 @@ public class ComunicadoServiceImp implements ComunicadoService{
 
     @Override
     public List<Comunicado> findAll() {
-        return comunicadoRepository.findAll();
+        return comunicadoRepository.findTop9ByOrderByIdAsc();
     }
 
     @Override
