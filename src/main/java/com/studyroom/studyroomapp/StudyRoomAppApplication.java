@@ -51,29 +51,18 @@ public class StudyRoomAppApplication implements CommandLineRunner{
 		System.out.println(bCryptPasswordEncoder.encode("password"));
 
 		/* INSERT DE RESERVAS */
-		for (Horario horario : horarioService.findAll()) {
+		/* for (Horario horario : horarioService.findAll()) {
 			ReservaPK reservaPK = ReservaPK.builder().asiento(asientoService.findById((short) 1)).horario(horario).fecha(new Date()).build();
 			Reserva reserva = Reserva.builder().reservaPK(reservaPK).usuario(usuarioService.findByEmail("acostaortizpablo@gmail.com")).build();
 			reservaService.save(reserva);
-		}
+		} */
 
-		ReservaPK reservaPK = ReservaPK.builder().asiento(asientoService.findById((short) 3)).horario(horarioService.findById((short)1)).fecha(new Date()).build();
+		/* ReservaPK reservaPK = ReservaPK.builder().asiento(asientoService.findById((short) 3)).horario(horarioService.findById((short)1)).fecha(new Date()).build();
 		Reserva reserva = Reserva.builder().reservaPK(reservaPK).usuario(usuarioService.findByEmail("acostaortizpablo@gmail.com")).build();
 		reservaService.save(reserva);
 
 		reservaPK = ReservaPK.builder().asiento(asientoService.findById((short) 3)).horario(horarioService.findById((short)2)).fecha(new Date()).build();
 		reserva = Reserva.builder().reservaPK(reservaPK).usuario(usuarioService.findByEmail("acostaortizpablo@gmail.com")).build();
-		reservaService.save(reserva);
-
-		for (int i = 0; i < 100; i++) {
-			Usuario u = Usuario
-				.builder()
-				.email("pablo"+i+"@gmail.com")
-				.username("pablo"+i)
-				.password("$2a$10$3Xh/E6BcbaNLiIlGE6EMxesbqRfS7/RWavl6gYkRsRjjdfKJuXdHi")
-				.roles(Arrays.asList(rolService.findByRol("ROLE_USER")))
-				.build();
-			usuarioService.save(u);
-		}
+		reservaService.save(reserva); */
 	}
 }
