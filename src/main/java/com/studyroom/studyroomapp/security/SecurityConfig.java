@@ -4,6 +4,7 @@ import java.time.Duration;
 import java.util.Arrays;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -36,6 +37,9 @@ public class SecurityConfig {
 
     @Autowired
     private JWTService jwtService;
+
+    @Value("${allowed.url}")
+    private String allowedUrl;
 
     @Autowired
     private CustomUserDetailsService customUserDetailsService;
@@ -82,14 +86,14 @@ public class SecurityConfig {
 
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
-        System.out.println("FILTRO CORS");
+        System.out.println(allowedUrl);
         CorsConfiguration cc = new CorsConfiguration();
         cc.setAllowedHeaders(Arrays.asList("Origin,Accept", "X-Requested-With", "Content-Type",
                 "Access-Control-Request-Method", "Access-Control-Request-Headers", "Authorization", "X-Auth-Token"));
         cc.setExposedHeaders(Arrays.asList("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials", "Authorization"));
-        cc.setAllowedOrigins(Arrays.asList("http://localhost:4200"));
+        cc.setAllowedOrigins(Arrays.asList(allowedUrl));
         cc.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"));
-        cc.addAllowedOrigin("http://localhost:4200");
+        cc.addAllowedOrigin(allowedUrl);
         cc.setMaxAge(Duration.ZERO);
         cc.setAllowCredentials(Boolean.TRUE);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
