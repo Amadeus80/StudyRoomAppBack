@@ -32,8 +32,8 @@ import com.studyroom.studyroomapp.models.entity.Usuario;
 import com.studyroom.studyroomapp.models.service.RolService;
 import com.studyroom.studyroomapp.models.service.UsuarioService;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/user")

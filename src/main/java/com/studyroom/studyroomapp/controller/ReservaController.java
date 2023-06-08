@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -42,8 +43,8 @@ import com.studyroom.studyroomapp.models.service.ReservaService;
 import com.studyroom.studyroomapp.models.service.UsuarioService;
 import com.studyroom.studyroomapp.utils.correo.Correo;
 
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/reserva")
@@ -63,10 +64,10 @@ public class ReservaController {
     private UsuarioService usuarioService;
 
     @Autowired
-    private Correo correo;
+    private JWTService jwtService;
 
     @Autowired
-    private JWTService jwtService;
+    private Correo correo;
 
     
     @GetMapping("/lista")
@@ -158,6 +159,7 @@ public class ReservaController {
 
     @PostMapping("/add")
     public Reserva save(@Valid @RequestBody Reserva reserva, HttpServletRequest request){
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
 
         Date fechaReserva = fechaSinHoras(reserva.getReservaPK().getFecha());
         if(fechaReserva.before(fechaSinHoras(new Date()))){
@@ -172,14 +174,15 @@ public class ReservaController {
         String asiento = asientoService.findById(r.getReservaPK().getAsiento().getId()).getAsiento();
         String horario = horarioService.findById(r.getReservaPK().getHorario().getId()).getHora();
 
-        String subject = "Reserva relizada para el día ".concat(r.getReservaPK().getFecha().toString());
+        Date fecha = r.getReservaPK().getFecha();
+        String subject = "Reserva relizada para el día ".concat(dateFormat.format(fecha));
         String message = "Has realizado una reserva para el día "
-            .concat(r.getReservaPK().getFecha().toString())
+            .concat(dateFormat.format(fecha))
             .concat(" en el asiento ")
             .concat(asiento)
             .concat(" a las ")
             .concat(horario);
-        /* correo.sendEmail(Arrays.asList(r.getUsuario().getEmail()) ,subject, message); */
+        correo.sendEmail(Arrays.asList(r.getUsuario().getEmail()) ,subject, message);
         return r;
     }
 

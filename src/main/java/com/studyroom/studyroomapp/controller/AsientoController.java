@@ -15,7 +15,7 @@ import com.studyroom.studyroomapp.controller.errors.exceptions.Genericas.NotFoun
 import com.studyroom.studyroomapp.models.entity.Asiento;
 import com.studyroom.studyroomapp.models.service.AsientoService;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/asiento")

@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.0.7</version>
+		<version>2.7.12</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.studyroom</groupId>
@@ -14,7 +14,7 @@
 	<name>study-room-app</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
-		<java.version>19</java.version>
+		<java.version>1.8</java.version>
 	</properties>
 	<dependencies>
 		<dependency>
@@ -44,7 +44,8 @@
 		</dependency>
 		<dependency>
 			<groupId>org.thymeleaf.extras</groupId>
-			<artifactId>thymeleaf-extras-springsecurity6</artifactId>
+			<artifactId>thymeleaf-extras-springsecurity4</artifactId>
+			<version>3.0.1.RELEASE</version>
 		</dependency>
 
 		<dependency>
@@ -94,6 +95,11 @@
 			<groupId>com.sun.mail</groupId>
 			<artifactId>javax.mail</artifactId>
 			<version>1.6.1</version>
+		</dependency>
+		<dependency>
+			<groupId>org.simplejavamail</groupId>
+			<artifactId>simple-java-mail</artifactId>
+			<version>4.1.1</version>
 		</dependency>
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

@@ -2,6 +2,8 @@ package com.studyroom.studyroomapp.utils.correo;
 
 import java.util.List;
 import java.util.Properties;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.Future;
 
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -10,14 +12,16 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Component;
 
-@Component
+@Component("correo")
 public class Correo {
     private final static String remitente = "studyroomapp9";
     private final static String password = "batwfsmkiirwzbqw";
 
-    public void sendEmail(List<String> destinatarios, String asunto, String cuerpo) {
+    @Async
+    public Future<String> sendEmail(List<String> destinatarios, String asunto, String cuerpo) {
 
         Properties props = System.getProperties();
         props.put("mail.smtp.host", "smtp.gmail.com");  //El servidor SMTP de Google
@@ -44,10 +48,11 @@ public class Correo {
             transport.connect("smtp.gmail.com", remitente, password);
             transport.sendMessage(message, message.getAllRecipients());
             transport.close();
-            System.out.println("Correo enviado con éxito");
+            return CompletableFuture.completedFuture("Correo enviado");
         }
         catch (MessagingException me) {
             me.printStackTrace();   //Si se produce un error
+            return CompletableFuture.completedFuture("Correo no enviado");
 		}
     } 
 }

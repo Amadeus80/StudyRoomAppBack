@@ -19,7 +19,7 @@ import com.studyroom.studyroomapp.models.entity.Contacto;
 import com.studyroom.studyroomapp.models.service.ContactoService;
 import com.studyroom.studyroomapp.utils.correo.Correo;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/contacto")
@@ -59,7 +59,7 @@ public class ContactoController {
         if(contacto == null){
             throw new NotFoundException("Consulta con id ".concat(String.valueOf(id)));
         }
-        /* correo.sendEmail(Arrays.asList(contactoService.findById(id).getEmail()), "Respuesta ".concat(contactoService.findById(id).getMensaje()), resolverConsulta.getMensaje()); */
+        correo.sendEmail(Arrays.asList(contactoService.findById(id).getEmail()), "Respuesta ".concat(contactoService.findById(id).getMensaje()), resolverConsulta.getMensaje());
         contacto.setResuelta(true);
         contactoService.save(contacto);
         return resolverConsulta;

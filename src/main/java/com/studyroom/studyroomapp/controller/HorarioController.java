@@ -21,8 +21,8 @@ import com.studyroom.studyroomapp.controller.errors.exceptions.Genericas.NotFoun
 import com.studyroom.studyroomapp.controller.errors.exceptions.ReservasExceptions.FormatoFechaException;
 import com.studyroom.studyroomapp.models.entity.Horario;
 import com.studyroom.studyroomapp.models.service.HorarioService;
-import jakarta.servlet.http.HttpServletRequest;
-import jakarta.validation.Valid;
+import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping("/api/horario")

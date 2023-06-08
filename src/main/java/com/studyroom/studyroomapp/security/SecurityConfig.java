@@ -58,12 +58,12 @@ public class SecurityConfig {
         http
                 .cors(cors -> cors.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/login*", "/api/login/**", "/api/user/add", "/api/contacto/add", "/comunicados/**", "/api/comunicados/**").permitAll()
-                        .requestMatchers(HttpMethod.OPTIONS, "*").permitAll()
-                        .requestMatchers("/api/user/find-user-logeado").authenticated()
-                        .requestMatchers("/api/user/editUsernameUsuario").authenticated()
-                        .requestMatchers("/api/user/editPasswordUsuario").authenticated()
-                        .requestMatchers("/api/user/**").hasAnyRole("ADMIN")
+                        .antMatchers("/login*", "/api/login/**", "/api/user/add", "/api/contacto/add", "/comunicados/**", "/api/comunicados/**").permitAll()
+                        .antMatchers(HttpMethod.OPTIONS, "*").permitAll()
+                        .antMatchers("/api/user/find-user-logeado").authenticated()
+                        .antMatchers("/api/user/editUsernameUsuario").authenticated()
+                        .antMatchers("/api/user/editPasswordUsuario").authenticated()
+                        .antMatchers("/api/user/**").hasAnyRole("ADMIN")
                         .requestMatchers(new AntPathRequestMatcher("/h2-console/**")).permitAll()
                         .anyRequest().authenticated())
                 .csrf(csrf -> {

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.scheduling.annotation.EnableAsync;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.studyroom.studyroomapp.models.entity.Horario;
@@ -20,6 +21,7 @@ import com.studyroom.studyroomapp.models.service.RolService;
 import com.studyroom.studyroomapp.models.service.UsuarioService;
 
 @SpringBootApplication
+@EnableAsync
 public class StudyRoomAppApplication implements CommandLineRunner{
 
 	@Autowired
