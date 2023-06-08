@@ -13,7 +13,7 @@ public interface ReservaService {
     public List<Reserva> findAll();
     public Reserva findById(ReservaPK reservaPK);
     public Reserva save(Reserva r);
-    public Page<Reserva> findByUsuario(Long id, Pageable pageable);
+    public Page<Reserva> findByUsuario(Long id,Date fecha,Short hora, Pageable pageable);
     public List<Reserva> findByAsientoAndFecha(Short idAsiento, Date fecha);
     public void deleteById(ReservaPK reservaPK);
 }

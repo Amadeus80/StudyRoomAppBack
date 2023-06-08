@@ -38,8 +38,8 @@ public class ReservaServiceImp implements ReservaService{
     }
 
     @Override
-    public Page<Reserva> findByUsuario(Long id, Pageable pageable) {
-        return reservaRepository.findByUsuario(id, pageable);
+    public Page<Reserva> findByUsuario(Long id,Date fecha,Short hora, Pageable pageable) {
+        return reservaRepository.findByUsuario(id, fecha,hora, pageable);
     }
 
     @Override

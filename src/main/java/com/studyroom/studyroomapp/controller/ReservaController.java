@@ -1,7 +1,9 @@
 package com.studyroom.studyroomapp.controller;
 
 import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -30,6 +32,7 @@ import com.studyroom.studyroomapp.controller.errors.exceptions.ReservasException
 import com.studyroom.studyroomapp.controller.errors.exceptions.ReservasExceptions.FormatoFechaException;
 import com.studyroom.studyroomapp.dtos.ReservaDia;
 import com.studyroom.studyroomapp.models.entity.Asiento;
+import com.studyroom.studyroomapp.models.entity.Horario;
 import com.studyroom.studyroomapp.models.entity.Reserva;
 import com.studyroom.studyroomapp.models.entity.ReservaPK;
 import com.studyroom.studyroomapp.models.entity.Usuario;
@@ -82,6 +85,25 @@ public class ReservaController {
         return calendar.getTime();
     }
 
+    private static String horaActual(){
+        LocalDateTime ahora= LocalDateTime.now();
+        int hora = ahora.getHour();
+        int minutos = ahora.getMinute();
+        String horaString = "";
+        if(minutos > 30){
+            hora++;
+        }
+        if(hora < 10){
+            horaString = "0"+String.valueOf(hora);
+        }
+        else{
+            horaString = String.valueOf(hora);
+        }
+        
+        
+        return horaString + ":00";
+    }
+
     @GetMapping("/{fecha}")
     public List<ReservaDia> findByFecha(@PathVariable(name = "fecha") String fecha){
 
@@ -127,8 +149,11 @@ public class ReservaController {
         if(usuario == null){
             throw new NotFoundException("Usuario ");
         }
+
+        Date fecha = new Date();
+        Horario horario = horarioService.findByHora(horaActual());
         Pageable pageRequest = PageRequest.of(page, 5);
-        return reservaService.findByUsuario(usuario.getId(), pageRequest);
+        return reservaService.findByUsuario(usuario.getId(),fecha,horario.getId(), pageRequest);
     }
 
     @PostMapping("/add")
