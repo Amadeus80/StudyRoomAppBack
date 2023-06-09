@@ -187,6 +187,7 @@ public class ReservaController {
 
     @DeleteMapping("/delete")
     public void deleteById(@Valid @RequestBody ReservaPK reservaPK, HttpServletRequest request){
+        DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
         String token =  request.getHeader(JWTServiceImpl.HEADER_STRING);
         String usuarioEmail = jwtService.getUsername(token);
         Usuario usuario = usuarioService.findByEmail(usuarioEmail);
@@ -200,6 +201,26 @@ public class ReservaController {
         if(reserva.getUsuario().getId() != usuario.getId()){
             throw new BorradoReservaException(reservaPK.toString());
         }
+
+        Date fecha = reservaPK.getFecha();
+        Asiento asiento = asientoService.findById(reservaPK.getAsiento().getId());
+        String asientoStr = "";
+        if(asiento != null){
+            asientoStr = asiento.getAsiento();
+        }
+        Horario horario = horarioService.findById(reservaPK.getHorario().getId());
+        String horarioStr = "";
+        if(horario != null){
+            horarioStr = horario.getHora();
+        }
+        String subject = "Reserva cancelada para el día ".concat(dateFormat.format(fecha));
+        String message = "Se ha cancelado la reserva para el día "
+            .concat(dateFormat.format(fecha))
+            .concat(" en el asiento ")
+            .concat(asientoStr)
+            .concat(" a las ")
+            .concat(horarioStr);
+        correo.sendEmail(Arrays.asList(usuario.getEmail()) ,subject, message);
         reservaService.deleteById(reservaPK);
     }
 
