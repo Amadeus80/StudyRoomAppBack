@@ -91,9 +91,10 @@ public class SecurityConfig {
         cc.setAllowedHeaders(Arrays.asList("Origin,Accept", "X-Requested-With", "Content-Type",
                 "Access-Control-Request-Method", "Access-Control-Request-Headers", "Authorization", "X-Auth-Token"));
         cc.setExposedHeaders(Arrays.asList("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials", "Authorization"));
-        cc.setAllowedOrigins(Arrays.asList(allowedUrl));
+        cc.setAllowedOriginPatterns(Arrays.asList("*"));
+        /* cc.setAllowedOrigins(Arrays.asList(allowedUrl)); */
         cc.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS", "PUT", "PATCH", "DELETE"));
-        cc.addAllowedOrigin(allowedUrl);
+        /* cc.addAllowedOrigin("*"); */
         cc.setMaxAge(Duration.ZERO);
         cc.setAllowCredentials(Boolean.TRUE);
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
