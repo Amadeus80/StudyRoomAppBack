@@ -69,6 +69,15 @@ public class HorarioController {
         return horarioService.findAll();
     }
 
+    @GetMapping("/hora/{hora}")
+    public Horario obtenerHorario(@PathVariable(name = "hora") String hora){
+        Horario horario = horarioService.findByHora(hora);
+        if(horario == null){
+            throw new NotFoundException("La hora ".concat(hora));
+        }
+        return horario;
+    }
+
     @GetMapping("/{id}")
     public Horario findById(@PathVariable(name = "id") Short id){
         Horario horario = horarioService.findById(id);

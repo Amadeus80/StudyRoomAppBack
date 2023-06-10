@@ -39,6 +39,15 @@ public class AsientoController {
         return asiento;
     }
 
+    @GetMapping("/find/{asiento}")
+    public Asiento obtenerAsiento(@PathVariable(name = "asiento") String asientoStr){
+        Asiento asiento = asientoService.findByAsiento(asientoStr);
+        if(asiento == null){
+            throw new NotFoundException("El asiento ".concat(asientoStr));
+        }
+        return asiento;
+    }
+
     @PostMapping("/add")
     public Asiento save(@Valid @RequestBody Asiento asiento){
         return asientoService.save(asiento);

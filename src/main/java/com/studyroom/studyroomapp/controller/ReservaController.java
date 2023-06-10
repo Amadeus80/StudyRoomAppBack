@@ -131,7 +131,7 @@ public class ReservaController {
         return reservas;
     }
 
-    @GetMapping("/find")
+    @PostMapping("/find")
     public Reserva findById(@Valid @RequestBody ReservaPK reservaPK){
         ReservaPK pk = ReservaPK.builder().asiento(asientoService.findById(reservaPK.getAsiento().getId())).horario(horarioService.findById(reservaPK.getHorario().getId())).fecha(reservaPK.getFecha()).build();
         Reserva reserva = reservaService.findById(pk);
