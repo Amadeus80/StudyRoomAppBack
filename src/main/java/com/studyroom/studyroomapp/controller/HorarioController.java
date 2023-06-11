@@ -6,6 +6,9 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,23 +48,24 @@ public class HorarioController {
 
     private static String horaActual(){
         LocalDateTime ahora= LocalDateTime.now();
-                int hora = ahora.getHour();
-                int minutos = ahora.getMinute();
-                String horaString = "";
-
-                if(minutos > 30){
-                    hora++;
-                }
-
-                if(hora < 10){
-                    horaString = "0"+String.valueOf(hora);
-                }
-                else{
-                    horaString = String.valueOf(hora);
-                }
-                
-                
-                return horaString + ":00";
+        ZoneId zonaHorariaEspaña = ZoneId.of("Europe/Madrid");
+        ZonedDateTime zonedDateTime = ahora.atZone(ZoneOffset.systemDefault());
+        ZonedDateTime horaEspaña = zonedDateTime.withZoneSameInstant(zonaHorariaEspaña);
+        int hora = horaEspaña.getHour();
+        int minutos = horaEspaña.getMinute();
+        String horaString = "";
+        if(minutos > 30){
+            hora++;
+        }
+        if(hora < 10){
+            horaString = "0"+String.valueOf(hora);
+        }
+        else{
+            horaString = String.valueOf(hora);
+        }
+        
+        
+        return horaString + ":00";
     }
 
     @GetMapping("/lista")

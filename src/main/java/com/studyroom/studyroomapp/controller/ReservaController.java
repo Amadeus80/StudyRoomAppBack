@@ -3,6 +3,9 @@ package com.studyroom.studyroomapp.controller;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZoneOffset;
+import java.time.ZonedDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -87,8 +90,11 @@ public class ReservaController {
 
     private static String horaActual(){
         LocalDateTime ahora= LocalDateTime.now();
-        int hora = ahora.getHour();
-        int minutos = ahora.getMinute();
+        ZoneId zonaHorariaEspaña = ZoneId.of("Europe/Madrid");
+        ZonedDateTime zonedDateTime = ahora.atZone(ZoneOffset.systemDefault());
+        ZonedDateTime horaEspaña = zonedDateTime.withZoneSameInstant(zonaHorariaEspaña);
+        int hora = horaEspaña.getHour();
+        int minutos = horaEspaña.getMinute();
         String horaString = "";
         if(minutos > 30){
             hora++;
