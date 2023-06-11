@@ -3,6 +3,7 @@ package com.studyroom.studyroomapp.controller;
 import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
@@ -33,5 +34,16 @@ public class WebSocket {
         comunicado.setFecha(new Date());
         System.out.println(comunicado);
         return comunicadoService.save(comunicado);
+    }
+
+    @MessageMapping("/delete-comunicado/{id}")
+    @SendTo("/topic/comunicados-delete")
+    public Comunicado deleteComunicado(@DestinationVariable Long id){
+        Comunicado comunicado = comunicadoService.findById(id);
+        if(comunicado == null){
+            throw new NotFoundException("El comunicado ".concat(String.valueOf(id)));
+        }
+        comunicadoService.deleteById(id);
+        return comunicado;
     }
 }
