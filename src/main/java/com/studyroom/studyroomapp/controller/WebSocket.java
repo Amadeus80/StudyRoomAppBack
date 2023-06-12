@@ -23,6 +23,7 @@ public class WebSocket {
     @Autowired
     private UsuarioService usuarioService;
 
+    /* Endpoint websocket para enviar un comunicado y devuelve un evento a /topic/comunicados */
     @MessageMapping("/send-comunicado")
     @SendTo("/topic/comunicados")
     public Comunicado sendComunicado(Comunicado comunicado){
@@ -36,6 +37,7 @@ public class WebSocket {
         return comunicadoService.save(comunicado);
     }
 
+    /* Endpoint websocket para borrar un comunicado y devuelve un evento a /topic/comunicados-delete */
     @MessageMapping("/delete-comunicado/{id}")
     @SendTo("/topic/comunicados-delete")
     public Comunicado deleteComunicado(@DestinationVariable Long id){

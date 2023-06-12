@@ -31,6 +31,7 @@ public class JWTServiceImpl implements JWTService{
 
     public static final String HEADER_STRING = "Authorization";
 
+    /* Crea el token a partir de la autenticación */
     @Override
     public String create(Authentication auth) throws IOException {
         // 1 forma de recoger el nombre del usuario autenticado
@@ -55,6 +56,7 @@ public class JWTServiceImpl implements JWTService{
             return token;
     }
 
+    /* Comprueba la validez del token */
     @Override
     public boolean validate(String token) {
         try{
@@ -66,6 +68,7 @@ public class JWTServiceImpl implements JWTService{
         }
     }
 
+    /* Obtiene los claims, en este caso los claims */
     @Override
     public Claims getClaims(String token) {
         Claims claims = Jwts.parserBuilder()
@@ -76,11 +79,13 @@ public class JWTServiceImpl implements JWTService{
         return claims;
     }
 
+    /* Obtiene el username del usuario que envia el token */
     @Override
     public String getUsername(String token) {
         return getClaims(token).getSubject();
     }
 
+    /* Obtiene los roles a través de los claims */
     @Override
     public Collection<? extends GrantedAuthority> getRoles(String token) throws IOException {
         Object roles = getClaims(token).get("authorities");

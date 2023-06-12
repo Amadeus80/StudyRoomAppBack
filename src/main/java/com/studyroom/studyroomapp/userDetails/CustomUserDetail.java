@@ -11,6 +11,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import com.studyroom.studyroomapp.models.entity.Rol;
 import com.studyroom.studyroomapp.models.entity.Usuario;
 
+/* Clase implementada para el usuario autenticado */
 public class CustomUserDetail implements UserDetails {
 
     private Usuario usuario;

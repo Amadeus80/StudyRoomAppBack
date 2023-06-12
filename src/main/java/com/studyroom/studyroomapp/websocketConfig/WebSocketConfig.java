@@ -7,6 +7,7 @@ import org.springframework.web.socket.config.annotation.EnableWebSocketMessageBr
 import org.springframework.web.socket.config.annotation.StompEndpointRegistry;
 import org.springframework.web.socket.config.annotation.WebSocketMessageBrokerConfigurer;
 
+/* Configuración de los websockets */
 @Configuration
 @EnableWebSocketMessageBroker
 public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
@@ -24,7 +25,6 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     public void registerStompEndpoints(StompEndpointRegistry registry) {
         registry.addEndpoint("/comunicados");
         registry.addEndpoint("/comunicados").withSockJS();
-        /* registry.addEndpoint("/comunicados").setAllowedOrigins(allowedUrl).withSockJS(); */
         registry.addEndpoint("/comunicados").setAllowedOriginPatterns("*").withSockJS();
     }
     

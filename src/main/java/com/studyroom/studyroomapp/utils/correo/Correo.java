@@ -20,6 +20,7 @@ public class Correo {
     private final static String remitente = "studyroomapp9";
     private final static String password = "batwfsmkiirwzbqw";
 
+    /* Función asincrona de envio de correos, recibe los destinatarios, el asuento y el cuerpo y realiza el envió de forma asíncrona */
     @Async
     public Future<String> sendEmail(List<String> destinatarios, String asunto, String cuerpo) {
 

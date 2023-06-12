@@ -110,6 +110,8 @@ public class ReservaController {
         return horaString + ":00";
     }
 
+    /* Obtenemos los asientos de la fecha pasada, se comprueba si un asiento ya no tiene horas disponibles, 
+    en ese caso se devuelve en la respuesta junto con el asiento su disponibilidad en false */
     @GetMapping("/{fecha}")
     public List<ReservaDia> findByFecha(@PathVariable(name = "fecha") String fecha){
 
@@ -147,6 +149,7 @@ public class ReservaController {
         return reserva;
     }
 
+    /* Obtenemos las reservas del usuario autenticado, este lo obtenemos a través del JWT */
     @GetMapping("/usuario")
     public Page<Reserva> findById(HttpServletRequest request, @RequestParam(name = "page", defaultValue = "0") int page){
         String token =  request.getHeader(JWTServiceImpl.HEADER_STRING);
@@ -162,6 +165,7 @@ public class ReservaController {
         return reservaService.findByUsuario(usuario.getId(),fecha,horario.getId(), pageRequest);
     }
 
+    /* Se añade una reserva y se envia un mensaje al usuario que le ha realizado */
     @PostMapping("/add")
     public Reserva save(@Valid @RequestBody Reserva reserva, HttpServletRequest request){
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);
@@ -191,6 +195,7 @@ public class ReservaController {
         return r;
     }
 
+    /* Borramos la reserva y se envia un correo al usuario que era propietario de la reserva*/
     @DeleteMapping("/delete")
     public void deleteById(@Valid @RequestBody ReservaPK reservaPK, HttpServletRequest request){
         DateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy", Locale.ENGLISH);

@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -25,7 +24,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import com.studyroom.studyroomapp.auth.filter.JWTAuthenticationFilter;
 import com.studyroom.studyroomapp.auth.filter.JWTAuthorizationFilter;
 import com.studyroom.studyroomapp.auth.service.JWTService;
-import com.studyroom.studyroomapp.userDetails.CustomUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
@@ -41,22 +39,15 @@ public class SecurityConfig {
     @Value("${allowed.url}")
     private String allowedUrl;
 
-    @Autowired
-    private CustomUserDetailsService customUserDetailsService;
-
     @Bean
     public static BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
 
-    /* @Bean
-    public DaoAuthenticationProvider authProvider() {
-        DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(customUserDetailsService);
-        authProvider.setPasswordEncoder(passwordEncoder());
-        return authProvider;
-    } */
-
+    /* Se define la configuración de seguridad, rutas permitidas a todos, las protegidas con autenticación y las que solo pueden acceder los admin.
+        También se indican los filtros de los JWT que se encargan de en cada petición que llega al servidor comporbar si el token es válido 
+        y no esta caducado para luego proceder a autenticar al usuario del token 
+     */
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
@@ -84,9 +75,9 @@ public class SecurityConfig {
         return http.build();
     }
 
+    /* Configuración de CORS */
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
-        System.out.println(allowedUrl);
         CorsConfiguration cc = new CorsConfiguration();
         cc.setAllowedHeaders(Arrays.asList("Origin,Accept", "X-Requested-With", "Content-Type",
                 "Access-Control-Request-Method", "Access-Control-Request-Headers", "Authorization", "X-Auth-Token"));

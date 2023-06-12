@@ -35,6 +35,7 @@ public class HorarioController {
     @Autowired
     private HorarioService horarioService;
 
+    /* Funcion para quitar las horas de las fechas para poder comparar dos fechas sin que suponga un problema las horas */
     public static Date fechaSinHoras(Date date){
         Calendar calendar = Calendar.getInstance();
 
@@ -46,6 +47,7 @@ public class HorarioController {
         return calendar.getTime();
     }
 
+    /* Obtengo la hora actual de la zona horaria de españa y comprueba si ya han pasado más de y media para devolver una hora o otra y así hacer la consulta a la bd */
     private static String horaActual(){
         LocalDateTime ahora= LocalDateTime.now();
         ZoneId zonaHorariaEspaña = ZoneId.of("Europe/Madrid");
@@ -68,11 +70,13 @@ public class HorarioController {
         return horaString + ":00";
     }
 
+    /* Listado de horas */
     @GetMapping("/lista")
     public List<Horario> findAll(HttpServletRequest request){
         return horarioService.findAll();
     }
 
+    /* Le pasamos una hora y devolvemos la entidad relacionado en la base de datos */
     @GetMapping("/hora/{hora}")
     public Horario obtenerHorario(@PathVariable(name = "hora") String hora){
         Horario horario = horarioService.findByHora(hora);
@@ -82,6 +86,7 @@ public class HorarioController {
         return horario;
     }
 
+    /* Buscamos una hora por su id */
     @GetMapping("/{id}")
     public Horario findById(@PathVariable(name = "id") Short id){
         Horario horario = horarioService.findById(id);
@@ -91,11 +96,13 @@ public class HorarioController {
         return horario;
     }
 
+    /* Añade un hora */
     @PostMapping("/add")
     public Horario save(@Valid @RequestBody Horario horario){
         return horarioService.save(horario);
     }
 
+    /* Te devuelve lkas horas disponibles en una fecha y un asiento concreto, tiene en cuenta si la fecha es del día de hoy para así solo mostrar las horas posteriores a la actual */
     @GetMapping("/horas-disponibles/{fecha}/{asientoId}")
     public List<Horario> listado(@PathVariable("fecha") String fecha, @PathVariable("asientoId") Short asientoId){
         DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");

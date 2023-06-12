@@ -16,6 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/* Comprueba la validez y caducidad del token de cada petición que llega al servidor y si la ruta que se está intentando solicitar necesita autenticación */
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter{
 
     private JWTService jwtService;
@@ -30,8 +31,6 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter{
         throws IOException, ServletException {
         
         String header = request.getHeader(JWTServiceImpl.HEADER_STRING);
-        System.out.println("ENTRANDOOOOO");
-        System.out.println(header);
         
         if(!requiresAuthentication(header)){
             chain.doFilter(request, response);

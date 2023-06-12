@@ -53,6 +53,7 @@ public class ContactoController {
         return contactoService.save(contacto);
     }
 
+    /* Recibe el id de la consulta y por el body un mensaje para resolver una consulta, al resorverla se envia un correo al usuario que realizó la consulta */
     @PostMapping("/resolver/{idConsulta}")
     private ResolverConsulta resolver(@Valid @RequestBody ResolverConsulta resolverConsulta, @PathVariable("idConsulta") Long id){
         Contacto contacto = contactoService.findById(id);
@@ -65,6 +66,7 @@ public class ContactoController {
         return resolverConsulta;
     }
 
+    /* Devuelve solo las consultas no resueltas */
     @GetMapping("/lista-no-resueltas")
     public List<Contacto> listaNoResueltas(){
         return contactoService.findByResuelta(false);

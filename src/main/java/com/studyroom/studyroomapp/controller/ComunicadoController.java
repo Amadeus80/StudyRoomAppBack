@@ -17,6 +17,7 @@ public class ComunicadoController {
     @Autowired
     private ComunicadoService comunicadoService;
     
+    /* Devuelve la lista de comunicados */
     @GetMapping("/lista")
     public List<Comunicado> lista(){
         return comunicadoService.findAll();

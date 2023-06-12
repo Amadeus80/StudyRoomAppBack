@@ -51,12 +51,8 @@ public class UsuarioController {
 
     @Autowired
     private JWTService jwtService;
-    
-    /* @GetMapping("/lista")
-    public List<Usuario> findAll(){
-        return usuarioService.findAll();
-    } */
 
+    /* Obtenemos la lista de usuarios paginada */
     @GetMapping("/lista")
     public Page<Usuario> findAll(@RequestParam(name = "page", defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size, @RequestParam(name = "q",required = false) String query){
         Pageable pageRequest = PageRequest.of(page, size);
@@ -84,6 +80,7 @@ public class UsuarioController {
         return u;
     }
 
+    /* Devuelve los datos del usuario logeado */
     @GetMapping("/find-user-logeado")
     public Usuario findUser(HttpServletRequest request){
         String token = request.getHeader(JWTServiceImpl.HEADER_STRING);
@@ -114,6 +111,7 @@ public class UsuarioController {
         return u;
     }
 
+    /* Permite el registro de usuarios */
     @PostMapping("/add")
     public Usuario save(@Valid @RequestBody Usuario usuario){
         if(usuarioService.findByEmail(usuario.getEmail()) != null){
@@ -131,6 +129,7 @@ public class UsuarioController {
         return usuario;
     }
 
+    /* Endpoint para que los admin registren un usuario */
     @PostMapping("/add-admin")
     public Usuario saveAdmin(@Valid @RequestBody Usuario usuario){
         if(usuarioService.findByEmail(usuario.getEmail()) != null){
@@ -157,6 +156,7 @@ public class UsuarioController {
         return usuario;
     }
 
+    /* Se edita el usuario sin modificar su contraseña */
     @PutMapping("/edit/{id}")
     public Usuario editAdmin(@Valid @RequestBody Usuario usuario, @PathVariable("id") Long id){
         Usuario u = usuarioService.findById(id);
@@ -189,6 +189,7 @@ public class UsuarioController {
         return usuario;
     }
 
+    /* Se edita la contraseña del usuario junto con los otros datos del usuario */
     @PutMapping("/edit-password/{id}")
     public Usuario editAdminPassword(@Valid @RequestBody Usuario usuario, @PathVariable("id") Long id){
         Usuario u = usuarioService.findById(id);
@@ -233,6 +234,7 @@ public class UsuarioController {
         return mensaje;
     }
 
+    /* Edita solo el nombre de usuario */
     @PutMapping("/editUsernameUsuario")
     public Usuario editUsernameUsuario(@Valid @RequestBody Usuario usuario, HttpServletRequest request){
         String token = request.getHeader(JWTServiceImpl.HEADER_STRING);
@@ -250,6 +252,7 @@ public class UsuarioController {
         return u;
     }
 
+    /* Edita solo la contraseña de usuario */
     @PutMapping("/editPasswordUsuario")
     public Usuario editPasswordUsuario(@Valid @RequestBody Usuario usuario, HttpServletRequest request){
         String token = request.getHeader(JWTServiceImpl.HEADER_STRING);

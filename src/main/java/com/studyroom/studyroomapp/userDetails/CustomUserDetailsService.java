@@ -10,7 +10,8 @@ import org.springframework.stereotype.Service;
 
 import com.studyroom.studyroomapp.models.entity.Usuario;
 import com.studyroom.studyroomapp.models.service.UsuarioService;
-
+/* Clase que implementa UserDatailsService que se encargar de autenticar con las credenciales, de esta forma la sobreescribimos y 
+podemos hacer las consultas a nuestra base de datos y realizar la autenticación con los datos de nuestros usuarios*/
 @Service
 public class CustomUserDetailsService implements UserDetailsService{
 
