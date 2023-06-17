@@ -51,5 +51,4 @@ public class ReservaServiceImp implements ReservaService{
     public void deleteById(ReservaPK reservaPK) {
         reservaRepository.deleteById(reservaPK);
     }
-    
 }
